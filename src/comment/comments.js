@@ -1,7 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getComments as getCommentsApi } from "../api";
+import CommentForm from "./commentForm";
 import Comment from "./comment";
+
 // get root comments function
 function Comments() {
   const [backendComments, setBackendComments] = useState([]);
@@ -14,6 +16,10 @@ function Comments() {
       setBackendComments(data);
     });
   }, []);
+  //add comment
+  function addComment(text, parentCommentId) {
+    console.log("new comment", text);
+  }
   // get replies of each root comment
   function getReplies(parentCommentId) {
     return backendComments
@@ -27,6 +33,9 @@ function Comments() {
   return (
     <div className="comments">
       <h3 className="comment-title">Comments</h3>
+      <div className="comment-form-title">
+        <CommentForm submitLabel="write" handleSubmit={addComment} />
+      </div>
       <div className="comment-container">
         {rootComments.map((rootComment) => (
           <Comment
