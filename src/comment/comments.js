@@ -1,6 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { getComments as getCommentsApi } from "../api";
+import {
+  getComments as getCommentsApi,
+  createComment as createCommentApi,
+} from "../api";
 import CommentForm from "./commentForm";
 import Comment from "./comment";
 
@@ -19,6 +22,9 @@ function Comments() {
   //add comment
   function addComment(text, parentCommentId) {
     console.log("new comment", text);
+    createCommentApi(text, parentCommentId).then((comment) =>
+      setBackendComments([comment, ...backendComments])
+    );
   }
   // get replies of each root comment
   function getReplies(parentCommentId) {
